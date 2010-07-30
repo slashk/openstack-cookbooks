@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nova
-# Recipe:: devel
+# Recipe:: common
 #
 # Copyright 2010, Opscode, Inc.
 #
@@ -16,10 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-include_recipe "openldap::nova"
-include_recipe "redis"
-include_recipe "rabbitmq"
 
 easy_install_package "virtualenv"
 easy_install_package "pip"
