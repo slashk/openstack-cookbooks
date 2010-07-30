@@ -1,0 +1,17 @@
+DEBUG: Using configuration from /Users/chris/.chef/knife.rb
+DEBUG: Signing the request as cw
+DEBUG: Sending HTTP Request via GET to api.opscode.com:443/organizations/nova/roles/nova-backend
+{
+    "name": "nova-backend",
+    "default_attributes": {
+    },
+    "json_class": "Chef::Role",
+    "run_list": [
+      "role[nova-volume]",
+      "role[nova-compute]"
+    ],
+    "description": "",
+    "chef_type": "role",
+    "override_attributes": {
+    }
+  }

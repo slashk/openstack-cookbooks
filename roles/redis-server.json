@@ -1,0 +1,18 @@
+DEBUG: Using configuration from /Users/chris/.chef/knife.rb
+DEBUG: Signing the request as cw
+DEBUG: Sending HTTP Request via GET to api.opscode.com:443/organizations/nova/roles/redis-server
+{
+    "name": "redis-server",
+    "default_attributes": {
+    },
+    "json_class": "Chef::Role",
+    "run_list": [
+      "recipe[runit::default]",
+      "recipe[build-essential]",
+      "recipe[redis]"
+    ],
+    "description": "",
+    "chef_type": "role",
+    "override_attributes": {
+    }
+  }
