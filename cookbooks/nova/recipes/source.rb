@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-easy_install_package "virtualenv"
+execute "easy_install virtualenv"
 
 package "bzr"
 
