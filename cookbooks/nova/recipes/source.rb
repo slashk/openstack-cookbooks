@@ -18,9 +18,10 @@
 #
 
 easy_install_package "virtualenv"
+
 package "bzr"
 
-execute "bzr init -repo nova" do
+execute "bzr init-repo nova" do
   cwd "/srv"
   not_if { File.directory?("/srv/nova") }
 end

@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-easy_install_package "pip"
+execute "apt-get -y  build-dep python-m2crypto" 
 
-package "build-dep"
 package "python-m2crypto"
+package "python-setuptools"
 
-
+easy_install_package "pip"
