@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nova
-# Recipe:: common
+# Recipe:: source
 #
 # Copyright 2010, Opscode, Inc.
 #
@@ -17,9 +17,19 @@
 # limitations under the License.
 #
 
-easy_install_package "pip"
+easy_install_package "virtualenv"
+package "bzr"
 
-package "build-dep"
-package "python-m2crypto"
+execute "bzr init -repo nova" do
+  cwd "/srv"
+  not_if { File.directory?("/srv/nova") }
+end
 
+execute "bzr branch #{node[:nova][:bzr_branch]} running" do
+  cwd "/srv/nova"
+  not_if { File.directory?("#{node[:nova][:bzr_branch]}/running") }
+end
 
+execute "python tools/install_venv.py" do
+  cwd "/srv/nova/"
+end
