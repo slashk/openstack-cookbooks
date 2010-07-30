@@ -35,5 +35,5 @@ execute "bzr branch #{node[:nova][:bzr_branch]} running" do
 end
 
 execute "python tools/install_venv.py" do
-  cwd "/srv/nova/
+  cwd "/srv/nova/"
 end
