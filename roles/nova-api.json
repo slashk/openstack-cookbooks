@@ -7,7 +7,7 @@ DEBUG: Sending HTTP Request via GET to api.opscode.com:443/organizations/nova/ro
     },
     "json_class": "Chef::Role",
     "run_list": [
-
+      "role[nova-base]"
     ],
     "description": "",
     "chef_type": "role",

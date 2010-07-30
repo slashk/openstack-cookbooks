@@ -1,13 +1,13 @@
 DEBUG: Using configuration from /Users/chris/.chef/knife.rb
 DEBUG: Signing the request as cw
-DEBUG: Sending HTTP Request via GET to api.opscode.com:443/organizations/nova/roles/nova-objectstore
+DEBUG: Sending HTTP Request via GET to api.opscode.com:443/organizations/nova/roles/nova-base
 {
-    "name": "nova-objectstore",
+    "name": "nova-base",
     "default_attributes": {
     },
     "json_class": "Chef::Role",
     "run_list": [
-      "role[nova-base]"
+      "recipe[nova::common]"
     ],
     "description": "",
     "chef_type": "role",
