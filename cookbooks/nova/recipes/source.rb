@@ -41,6 +41,35 @@ execute "python tools/install_venv.py" do
   not_if { File.exists?(File.join(local_branch_dir, ".nova-venv/bin/activate")) }
 end
 
-# is there an easier way to do this? automation? Relative paths?
+file File.join(local_branch_dir, "/.nova-venv/lib/python2.6/site-packages/nova.pth") do
+  content local_branch_dir
+end
 
-execute "echo #{local_branch_dir} >> #{File.join(local_branch_dir, "/.nova-venv/lib/python2.6/site-packages/nova.pth")}"
+bash do
+  code "./tools/with_venv.sh ./bin/nova-manage user admin admin"
+  cwd node[:nova][:local_branch_dir]
+  not_if "./tools/with_venv.sh ./bin/nova-manage user list | grep admin"
+end
+
+bash do
+  code "./tools/with_venv.sh ./bin/nova-manage project admin admin admin"
+  cwd node[:nova][:local_branch_dir]
+  not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
+end
+
+bash do
+  code "./tools/with_venv.sh ./bin/nova-manage project create admin admin admin"
+  cwd node[:nova][:local_branch_dir]
+  not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
+end
+
+bash do
+  code "./tools/with_venv.sh ./bin/nova-manage project zip admin admin"
+  cwd node[:nova][:local_branch_dir]
+  not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
+end
+
+execute "unzip nova.zip" do
+  cwd node[:nova][:local_branch_dir]
+end
+
