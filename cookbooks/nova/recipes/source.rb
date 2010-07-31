@@ -43,20 +43,20 @@ end
 bash "install nova user" do
   code "./tools/with_venv.sh ./bin/nova-manage user admin admin"
   cwd node[:nova][:local_branch_dir]
-  not_if "./tools/with_venv.sh ./bin/nova-manage user list | grep admin"
+  not_if "#{node[:nova][:local_branch_dir]}/tools/with_venv.sh #{node[:nova][:local_branch_dir]}/bin/nova-manage user list | grep admin"
 end
 
 
 bash "create project" do
   code "./tools/with_venv.sh ./bin/nova-manage project create admin admin"
   cwd node[:nova][:local_branch_dir]
-  not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
+  not_if "#{node[:nova][:local_branch_dir]}/tools/with_venv.sh #{node[:nova][:local_branch_dir]}/bin/nova-manage project list | grep admin"
 end
 
 bash "create project zipfile" do
   code "./tools/with_venv.sh ./bin/nova-manage project zip admin admin"
   cwd node[:nova][:local_branch_dir]
-  not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
+  not_if "#{node[:nova][:local_branch_dir]}/tools/with_venv.sh #{node[:nova][:local_branch_dir]}/bin/nova-manage project list | grep admin"
 end
 
 execute "unzip nova.zip" do
