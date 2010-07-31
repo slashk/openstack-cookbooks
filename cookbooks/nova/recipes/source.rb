@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "runit"
+
 execute "easy_install virtualenv"
 
 package "bzr"
@@ -56,10 +58,11 @@ end
 bash "create project zipfile" do
   code "./tools/with_venv.sh ./bin/nova-manage project zip admin admin"
   cwd node[:nova][:local_branch_dir]
-  not_if "#{node[:nova][:local_branch_dir]}/tools/with_venv.sh #{node[:nova][:local_branch_dir]}/bin/nova-manage project list | grep admin"
+  not_if { File.exists?(File.join(node[:nova][:local_branch_dir], "nova.zip")) }
 end
 
 execute "unzip nova.zip" do
   cwd node[:nova][:local_branch_dir]
+  not_if { File.exists?(File.join(node[:nova][:local_branch_dir], "novarc")) }
 end
 
