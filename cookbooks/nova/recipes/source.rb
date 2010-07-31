@@ -28,9 +28,10 @@ end
 
 execute "bzr branch #{node[:nova][:bzr_branch]} running" do
   cwd "/srv/nova"
-  not_if { File.directory?("#{node[:nova][:bzr_branch]}/running") }
+  not_if { File.directory?("/srv/nova/running") }
 end
 
 execute "python tools/install_venv.py" do
-  cwd "/srv/nova/"
+  cwd "/srv/nova/running"
+  not_if { File.exists?("/srv/nova/running/.nova-venv/bin/activate") }
 end
