@@ -21,5 +21,6 @@ execute "apt-get -y  build-dep python-m2crypto"
 
 package "python-m2crypto"
 package "python-setuptools"
+package "euca2ools"
 
 easy_install_package "pip"

@@ -17,21 +17,30 @@
 # limitations under the License.
 #
 
+services_base_dir = "/srv"
+nova_base_dir = File.join(services_base_dir, "nova")
+local_branch_name = "running"
+local_branch_dir = File.join(nova_base_dir, local_branch_name)
+
 execute "easy_install virtualenv"
 
 package "bzr"
 
 execute "bzr init-repo nova" do
-  cwd "/srv"
-  not_if { File.directory?("/srv/nova") }
+  cwd services_base_dir
+  not_if { File.directory?(nova_base_dir) }
 end
 
-execute "bzr branch #{node[:nova][:bzr_branch]} running" do
-  cwd "/srv/nova"
-  not_if { File.directory?("/srv/nova/running") }
+execute "bzr branch #{node[:nova][:bzr_branch]} #{local_branch_name}" do
+  cwd nova_base_dir
+  not_if { File.directory?(local_branch_dir) }
 end
 
 execute "python tools/install_venv.py" do
-  cwd "/srv/nova/running"
-  not_if { File.exists?("/srv/nova/running/.nova-venv/bin/activate") }
+  cwd local_branch_dir
+  not_if { File.exists?(File.join(local_branch_dir, ".nova-venv/bin/activate")) }
 end
+
+# is there an easier way to do this? automation? Relative paths?
+
+execute "echo #{local_branch_dir} >> #{File.join(local_branch_dir, "/.nova-venv/lib/python2.6/site-packages/nova.pth")}"
