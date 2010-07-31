@@ -32,7 +32,7 @@ execute "bzr branch #{node[:nova][:bzr_branch]} #{local_branch_name}" do
 end
 
 execute "python tools/install_venv.py" do
-  cwd local_branch_dir
+  cwd node[:nova][:local_branch_dir]
   not_if { File.exists?(File.join(node[:nova][:local_branch_dir], ".nova-venv/bin/activate")) }
 end
 
