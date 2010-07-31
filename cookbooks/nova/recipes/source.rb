@@ -40,25 +40,20 @@ file File.join(node[:nova][:local_branch_dir], "/.nova-venv/lib/python2.6/site-p
   content node[:nova][:local_branch_dir]
 end
 
-bash do
+bash "install nova user" do
   code "./tools/with_venv.sh ./bin/nova-manage user admin admin"
   cwd node[:nova][:local_branch_dir]
   not_if "./tools/with_venv.sh ./bin/nova-manage user list | grep admin"
 end
 
-bash do
-  code "./tools/with_venv.sh ./bin/nova-manage project admin admin admin"
+
+bash "create project" do
+  code "./tools/with_venv.sh ./bin/nova-manage project create admin admin"
   cwd node[:nova][:local_branch_dir]
   not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
 end
 
-bash do
-  code "./tools/with_venv.sh ./bin/nova-manage project create admin admin admin"
-  cwd node[:nova][:local_branch_dir]
-  not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
-end
-
-bash do
+bash "create project zipfile" do
   code "./tools/with_venv.sh ./bin/nova-manage project zip admin admin"
   cwd node[:nova][:local_branch_dir]
   not_if "./tools/with_venv.sh ./bin/nova-manage project list | grep admin"
