@@ -36,8 +36,8 @@ execute "python tools/install_venv.py" do
   not_if { File.exists?(File.join(node[:nova][:local_branch_dir], ".nova-venv/bin/activate")) }
 end
 
-file File.join(local_branch_dir, "/.nova-venv/lib/python2.6/site-packages/nova.pth") do
-  content local_branch_dir
+file File.join(node[:nova][:local_branch_dir], "/.nova-venv/lib/python2.6/site-packages/nova.pth") do
+  content node[:nova][:local_branch_dir]
 end
 
 bash do
