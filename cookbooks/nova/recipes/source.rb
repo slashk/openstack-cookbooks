@@ -26,7 +26,7 @@ execute "bzr init-repo nova" do
   not_if { File.directory?(node[:nova][:nova_base_dir]) }
 end
 
-execute "bzr branch #{node[:nova][:bzr_branch]} #{local_branch_name}" do
+execute "bzr branch #{node[:nova][:bzr_branch]} #{node[:nova][:local_branch_name]}" do
   cwd node[:nova][:nova_base_dir]
   not_if { File.directory?(node[:nova][:local_branch_dir]) }
 end
