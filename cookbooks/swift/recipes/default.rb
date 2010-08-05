@@ -128,15 +128,9 @@ execute "bzr launchpad-login #{node[:cloudfiles][:launchpad_login]}" do
   not_if "bzr launchpad-login"
 end
 
-execute "bzr init -repo swift" do
+execute "bzr branch #{node[:cloudfiles][:bzr_branch]}" do
   user node[:cloudfiles][:user]
   cwd node[:cloudfiles][:homedir]
-  not_if { File.directory?("#{node[:cloudfiles][:homedir]}/swift") }
-end
-
-execute "bzr branch #{node[:cloudfiles][:bzr_branch]} swift" do
-  user node[:cloudfiles][:user]
-  cwd "#{node[:cloudfiles][:homedir]}/swift"
   not_if { File.directory?("#{node[:cloudfiles][:homedir]}/swift") }
 end
 
