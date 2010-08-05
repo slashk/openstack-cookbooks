@@ -2,7 +2,7 @@
 
 if [ ! -f /usr/bin/chef-client ]; then
   sudo apt-get update 
-  sudo apt-get install -y ruby ruby1.8-dev build-essential wget libruby-extras libruby1.8-extras 
+  sudo apt-get install -y ruby ruby1.8-dev build-essential wget libruby-extras libruby1.8-extras curl
   cd /tmp 
   sudo wget http://rubyforge.org/frs/download.php/69365/rubygems-1.3.6.tgz
   sudo tar xvf rubygems-1.3.6.tgz
