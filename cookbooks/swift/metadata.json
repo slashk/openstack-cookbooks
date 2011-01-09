@@ -1,29 +1,29 @@
 {
-    "maintainer": "Opscode, Inc.",
-    "replacing": {
-    },
-    "description": "Installs/Configures cloudfiles",
-    "maintainer_email": "oss@opscode.com",
-    "groupings": {
-    },
-    "attributes": {
-    },
-    "platforms": {
-    },
-    "recommendations": {
-    },
-    "dependencies": {
-    },
-    "version": "0.1.0",
-    "suggestions": {
-    },
-    "conflicting": {
-    },
-    "license": "Apache 2.0",
-    "name": "swift",
-    "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-    "recipes": {
-    },
-    "providing": {
-    }
+  "suggestions": {
+  },
+  "license": "Apache 2.0",
+  "recipes": {
+  },
+  "conflicting": {
+  },
+  "dependencies": {
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "providing": {
+  },
+  "description": "Installs/Configures cloudfiles",
+  "platforms": {
+  },
+  "maintainer": "Opscode, Inc.",
+  "version": "0.1.0",
+  "replacing": {
+  },
+  "maintainer_email": "oss@opscode.com",
+  "groupings": {
+  },
+  "name": "swift",
+  "recommendations": {
+  },
+  "attributes": {
   }
+}

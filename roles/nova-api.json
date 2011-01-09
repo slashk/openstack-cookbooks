@@ -1,6 +1,3 @@
-DEBUG: Using configuration from /Users/chris/.chef/knife.rb
-DEBUG: Signing the request as cw
-DEBUG: Sending HTTP Request via GET to api.opscode.com:443/organizations/nova/roles/nova-api
 {
     "name": "nova-api",
     "default_attributes": {
