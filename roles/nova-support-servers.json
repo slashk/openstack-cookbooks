@@ -4,7 +4,6 @@
     },
     "json_class": "Chef::Role",
     "run_list": [
-      // "role[redis-server]"
       "role[openldap-server]",
       "role[rabbitmq-server]"
     ],
