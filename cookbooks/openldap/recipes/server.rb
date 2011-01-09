@@ -28,13 +28,13 @@ when "debian","ubuntu"
   end
 end
 
-package "db4.2-util" do
+package "db4.8-util" do
   action :upgrade
 end
 
 cookbook_file "/var/cache/local/preseeding/slapd.seed" do
   source "slapd.seed"
-  mode 0600 
+  mode 0600
   owner "root"
   group "root"
 end
@@ -73,14 +73,14 @@ when "intrepid","jaunty"
     group "openldap"
     action :create
   end
-  
+
   execute "slapd-config-convert" do
     command "slaptest -f #{node[:openldap][:dir]}/slapd.conf -F #{node[:openldap][:dir]}/slapd.d/"
     user "openldap"
     action :nothing
     notifies :start, resources(:service => "slapd"), :immediately
   end
-  
+
   template "#{node[:openldap][:dir]}/slapd.conf" do
     source "slapd.conf.erb"
     mode 0640
@@ -99,7 +99,7 @@ else
       mode 0644
     end
   end
-  
+
   template "#{node[:openldap][:dir]}/slapd.conf" do
     source "slapd.conf.erb"
     mode 0640
