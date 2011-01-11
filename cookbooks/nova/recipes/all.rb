@@ -19,6 +19,11 @@
 
 include_recipe "apt"
 
+package "nova-common" do
+  options "--force-yes -o Dpkg::Options::=\"--force-confdef\""
+  action :install
+end
+
 directory "/etc/nova" do
     owner "root"
     group "root"
@@ -35,7 +40,7 @@ end
 
 %w{nova-compute nova-api nova-objectstore nova-scheduler nova-network nova-volume}.each do |pkg|
   package pkg do
-    options "--force-yes -o Dpkg::Options::=\"--force-confdef\""
+    options "--force-yes"
     action :install
   end
 
