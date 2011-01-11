@@ -19,29 +19,23 @@
 
 include_recipe 'apt'
 
-if node[:anso][:cacher_url]
-  file "/etc/apt/sources.list.d/cacher.list" do
-    content <<-EOH
-  deb #{node[:anso][:cacher_url]} maverick main
-  deb-src #{node[:anso][:cacher_url]} maverick main
-    EOH
-    mode "0644"
-    notifies :run, resources(:execute => "apt-get update"), :immediately
+node[:apt][:sources].each do |name, source|
+  (source[:keys] || []).each do |key|
+    execute "install-key #{key}" do
+      command "apt-key adv --keyserver #{source[:keyserver]} --recv #{key}"
+      action :nothing
+    end
   end
-end
 
-file "/etc/apt/sources.list.d/nova.list" do
-  content <<-EOH
-deb #{node[:anso][:packages_url]} maverick main
-deb-src #{node[:anso][:packages_url]} maverick main
-  EOH
-  mode "0644"
-  notifies :run, resources(:execute => "apt-get-update"), :immediately
-end
-
-node[:anso][:keys].each do |key|
-  execute "apt-key adv --keyserver #{node[:anso][:keyserver]} --recv #{key}" do
-    subscribes :run, resources(:file => "/etc/apt/sources.list.d/nova.list"), :immediately
-    action :nothing
+  file "/etc/apt/sources.list.d/#{name.to_s}.list" do
+    content <<-EOH
+deb #{source[:url]} #{node[:apt][:distro]} main
+deb-src #{source[:url]} #{node[:apt][:distro]} main
+EOH
+    mode "0644"
+    (source[:keys] || []).each do |key|
+      notifies :run, resources(:execute => "install-key #{key}"), :immediately
+    end
+    notifies :run, resources(:execute => "apt-get update"), :immediately
   end
 end
