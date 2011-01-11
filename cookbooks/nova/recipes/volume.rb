@@ -37,3 +37,26 @@ ISCSITARGET_ENABLE=true
   mode 0644
   notifies :restart, resources(:service => "iscsitarget"), :immediately
 end
+
+directory "/var/lib/nova/scripts" do
+    owner "nova"
+    group "nova"
+    mode 0755
+    action :create
+end
+
+file "/var/lib/nova/scripts/iscsidev.sh" do
+  source "iscsidev.sh"
+  owner "nova"
+  group "nova"
+  mode 0644
+end
+
+file "/etc/udev/rules.d/55-openiscsi.rules" do
+  content <<-EOH
+KERNEL=="sd*", BUS=="scsi", PROGRAM="/var/lib/nova/scripts/iscsidev.sh %b",SYMLINK+="iscsi/%c%n"
+EOH
+  owner "root"
+  group "root"
+  mode 0644
+end
