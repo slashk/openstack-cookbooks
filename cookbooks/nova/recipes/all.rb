@@ -48,7 +48,7 @@ end
     end
     supports :status => true, :restart => true, :reload => true
     action :nothing
-    subscribes :restart, resources(:template => "/etc/nova/nova.conf"), :immediately
+    subscribes :restart, resources(:template => "/etc/nova/nova.conf")
   end
 end
 

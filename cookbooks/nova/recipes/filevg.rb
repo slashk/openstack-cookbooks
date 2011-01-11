@@ -16,17 +16,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "apt"
+
+%w{lvm2}.each do |pkg|
+  package pkg do
+    options "--force-yes"
+  end
+end
 
 execute "dd if=/dev/zero of=/root/nova-volumes bs=1M seek=1039 count=1" do
   user "root"
-  not_if "ls /root/nova-volumes"
-  not_if "vgs --noheadings -o name | grep nova-volumes"
+  not_if "ls /root/nova-volumes || vgs --noheadings -o name | grep nova-volumes"
 end
 
 execute "losetup /dev/loop0 /root/nova-volumes" do
   user "root"
-  not_if "losetup -a | grep /dev/loop0"
-  not_if "vgs --noheadings -o name | grep nova-volumes"
+  not_if "losetup -a | grep /dev/loop0 || vgs --noheadings -o name | grep nova-volumes"
 end
 
 execute "vgcreate nova-volumes /dev/loop0" do
