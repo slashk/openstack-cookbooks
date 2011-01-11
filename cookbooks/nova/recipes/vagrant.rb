@@ -1,8 +1,7 @@
 #
 # Cookbook Name:: nova
-# Recipe:: default
+# Recipe:: vagrant
 #
-# Copyright 2010, Opscode, Inc.
 # Copyright 2011, Anso Labs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe "anso"
-include_recipe "all"
-include_recipe "setup"
+include_recipe "apt"
+
+execute "unzip /var/lib/nova/nova.zip -d /vagrant" do
+  user "vagrant"
+  not_if "ls /vagrant/novarc"
+end
