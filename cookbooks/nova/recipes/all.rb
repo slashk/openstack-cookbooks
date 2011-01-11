@@ -19,6 +19,13 @@
 
 include_recipe "apt"
 
+template "/etc/nova/nova.conf" do
+  source "nova.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
 %w{nova-compute nova-api nova-objectstore nova-scheduler nova-network nova-volume}.each do |pkg|
   package pkg do
     options "--force-yes"
@@ -37,9 +44,3 @@ include_recipe "apt"
   end
 end
 
-template "/etc/nova/nova.conf" do
-  source "nova.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-end

@@ -4,3 +4,4 @@
 --state_path=/var/lib/nova
 --verbose
 <% if node[:nova][:my_ip] %>--my_ip=<%= node[:nova][:my_ip] %><% end %>
+<% if node[:nova][:libvirt_type] %>--libvirt_type=<%= node[:nova][:libvirt_type] %><% end %>
