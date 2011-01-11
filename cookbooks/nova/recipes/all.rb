@@ -52,3 +52,18 @@ end
   end
 end
 
+
+service "iscsitarget" do
+  supports :status => true, :restart => true, :reload => true
+  action :nothing
+end
+
+file "/etc/default/iscsitarget" do
+  content <<-EOH
+ISCSITARGET_ENABLE=true
+  EOH
+  owner "root"
+  goup "root"
+  mode 0644
+  notifies :restart, resources(:service => "iscsitarget"), :immediately
+end
