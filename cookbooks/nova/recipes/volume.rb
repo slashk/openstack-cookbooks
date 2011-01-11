@@ -40,7 +40,6 @@ end
 
 directory "/var/lib/nova/scripts" do
     owner "nova"
-    group "nova"
     mode 0755
     action :create
 end
@@ -48,7 +47,6 @@ end
 cookbook_file "/var/lib/nova/scripts/iscsidev.sh" do
   source "iscsidev.sh"
   owner "nova"
-  group "nova"
   mode 0644
 end
 
