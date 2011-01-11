@@ -63,7 +63,7 @@ file "/etc/default/iscsitarget" do
 ISCSITARGET_ENABLE=true
   EOH
   owner "root"
-  goup "root"
+  group "root"
   mode 0644
   notifies :restart, resources(:service => "iscsitarget"), :immediately
 end
