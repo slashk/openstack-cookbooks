@@ -33,15 +33,16 @@ execute "nova-manage project create #{node[:nova][:project]} #{node[:nova][:user
   not_if "nova-manage project list | grep #{node[:nova][:project]}"
 end
 
-
 execute "nova-manage network create 10.0.0.0/24 8 32" do
   user 'nova'
   not_if "ls /var/lib/nova/setup"
 end
-(default[:nova][:images] or []).each do |image|
+
+(node[:nova][:images] or []).each do |image|
   execute "curl #{image} | tar xvz -C /var/lib/nova/images" do
     user 'nova'
     not_if "ls /var/lib/nova/setup"
+  end
 end
 
 execute "touch /var/lib/nova/setup"

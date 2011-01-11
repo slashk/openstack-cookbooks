@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-include_recipe "nova-common"
-include_recipe "nova-api"
-include_recipe "nova-scheduler"
-include_recipe "nova-networki"
-include_recipe "nova-objectstore"
-include_recipe "nova-compute"
-include_recipe "nova-volume"
+include_recipe "nova::common"
+include_recipe "nova::api"
+include_recipe "nova::scheduler"
+include_recipe "nova::network"
+include_recipe "nova::objectstore"
+include_recipe "nova::compute"
+include_recipe "nova::volume"

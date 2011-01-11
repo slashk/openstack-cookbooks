@@ -19,10 +19,9 @@
 
 package "unzip"
 
-execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} #{node[:nova][:creds][:dir]}/nova.zip" do
-  user node[:nova][:creds][:user]
-  group node[:nova][:creds][:group]
-  not_if "ls #{node[:nova][:creds][:dir]}/nova.zip"
+execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} /var/lib/nova/nova.zip" do
+  user 'nova'
+  not_if "ls /var/lib/nova/nova.zip"
 end
 
 execute "unzip /var/lib/nova/nova.zip -d #{node[:nova][:creds][:dir]}/" do
