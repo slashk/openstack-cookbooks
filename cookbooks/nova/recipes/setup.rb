@@ -20,11 +20,8 @@
 
 include_recipe "apt"
 
-%w{euca2ools curl unzip}.each do |pkg|
-  package pkg do
-    options "--force-yes"
-  end
-end
+package "euca2ools"
+package "curl"
 
 execute "nova-manage user admin #{node[:nova][:user]}" do
   user 'nova'
@@ -36,17 +33,15 @@ execute "nova-manage project create #{node[:nova][:project]} #{node[:nova][:user
   not_if "nova-manage project list | grep #{node[:nova][:project]}"
 end
 
+
 execute "nova-manage network create 10.0.0.0/24 8 32" do
   user 'nova'
-  not_if "ls /var/lib/nova/nova.zip"
+  not_if "ls /var/lib/nova/setup"
+end
+(default[:nova][:images] or []).each do |image|
+  execute "curl #{image} | tar xvz -C /var/lib/nova/images" do
+    user 'nova'
+    not_if "ls /var/lib/nova/setup"
 end
 
-execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} /var/lib/nova/nova.zip" do
-  user 'nova'
-  not_if "ls /var/lib/nova/nova.zip"
-end
-
-execute "curl http://images.ansolabs.com/tty.tgz | tar xvz -C /var/lib/nova/images" do
-  user 'nova'
-  not_if "ls /var/lib/nova/images/ami-tty"
-end
+execute "touch /var/lib/nova/setup"
