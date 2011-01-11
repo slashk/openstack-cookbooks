@@ -19,6 +19,13 @@
 
 include_recipe "apt"
 
+directory "/etc/nova" do
+    owner "root"
+    group "root"
+    mode 0755
+    action :create
+end
+
 template "/etc/nova/nova.conf" do
   source "nova.conf.erb"
   owner "root"
@@ -28,7 +35,7 @@ end
 
 %w{nova-compute nova-api nova-objectstore nova-scheduler nova-network nova-volume}.each do |pkg|
   package pkg do
-    options "--force-yes"
+    options "--force-yes -o Dpkg::Options::=\"--force-confdef\""
     action :install
   end
 
@@ -37,6 +44,7 @@ end
       restart_command "restart #{pkg}"
       stop_command "stop #{pkg}"
       start_command "start #{pkg}"
+      status_command "status #{pkg}"
     end
     supports :status => true, :restart => true, :reload => true
     action :nothing
