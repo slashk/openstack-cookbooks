@@ -45,7 +45,7 @@ directory "/var/lib/nova/scripts" do
     action :create
 end
 
-file "/var/lib/nova/scripts/iscsidev.sh" do
+cookbook_file "/var/lib/nova/scripts/iscsidev.sh" do
   source "iscsidev.sh"
   owner "nova"
   group "nova"
