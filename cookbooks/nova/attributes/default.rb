@@ -1,4 +1,4 @@
 
-default[:nova][:install_type] = "source"
-default[:nova][:compute_connection_type] = "fake"
-  
+default[:nova][:install_type] = "binary"
+default[:nova][:compute_connection_type] = "qemu"
+
