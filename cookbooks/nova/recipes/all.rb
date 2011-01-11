@@ -22,5 +22,24 @@ include_recipe "apt"
 %w{nova-compute nova-api nova-objectstore nova-scheduler nova-network nova-volume}.each do |pkg|
   package pkg do
     options "--force-yes"
+    action :install
   end
+
+  service pkg do
+    if (platform?("ubuntu") && node.platform_version.to_f >= 10.04)
+      restart_command "restart #{pkg}"
+      stop_command "stop #{pkg}"
+      start_command "start #{pkg}"
+    end
+    supports :status => true, :restart => true, :reload => true
+    action :nothing
+    subscribes :restart, resources(:template => "/etc/nova/nova.conf"), :immediately
+  end
+end
+
+template "/etc/nova/nova.conf" do
+  source "nova.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
 end

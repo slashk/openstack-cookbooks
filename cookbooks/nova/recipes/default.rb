@@ -18,6 +18,6 @@
 # limitations under the License.
 #
 
-include_recipe "anso"
-include_recipe "all"
-include_recipe "setup"
+include_recipe "nova::anso"
+include_recipe "nova::all"
+include_recipe "nova::setup"
