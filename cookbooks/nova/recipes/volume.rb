@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nova
-# Recipe:: common
+# Recipe:: volume
 #
 # Copyright 2010, Opscode, Inc.
 #
@@ -17,23 +17,23 @@
 # limitations under the License.
 #
 
-include_recipe "apt"
-
-package "nova-common" do
-  options "--force-yes -o Dpkg::Options::=\"--force-confdef\""
-  action :install
+class Chef::Recipe
+  include NovaPackage
 end
 
-directory "/etc/nova" do
-    owner "root"
-    group "root"
-    mode 0755
-    action :create
+nova_package("volume")
+
+service "iscsitarget" do
+  supports :status => true, :restart => true, :reload => true
+  action :nothing
 end
 
-template "/etc/nova/nova.conf" do
-  source "nova.conf.erb"
+file "/etc/default/iscsitarget" do
+  content <<-EOH
+ISCSITARGET_ENABLE=true
+  EOH
   owner "root"
   group "root"
   mode 0644
+  notifies :restart, resources(:service => "iscsitarget"), :immediately
 end

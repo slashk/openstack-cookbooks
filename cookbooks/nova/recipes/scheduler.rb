@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nova
-# Recipe:: common
+# Recipe:: scheduler
 #
 # Copyright 2010, Opscode, Inc.
 #
@@ -17,23 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "apt"
-
-package "nova-common" do
-  options "--force-yes -o Dpkg::Options::=\"--force-confdef\""
-  action :install
+class Chef::Recipe
+  include NovaPackage
 end
 
-directory "/etc/nova" do
-    owner "root"
-    group "root"
-    mode 0755
-    action :create
-end
-
-template "/etc/nova/nova.conf" do
-  source "nova.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-end
+nova_package("scheduler")
