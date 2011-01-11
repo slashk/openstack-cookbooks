@@ -20,7 +20,7 @@
 module NovaPackage
   def nova_package(name)
     nova_name = "nova-#{name}"
-    case @node[:nova][:install_type]
+    case node[:nova][:install_type]
     when "source"
       include_recipe "nova::source"
       runit_service nova_name

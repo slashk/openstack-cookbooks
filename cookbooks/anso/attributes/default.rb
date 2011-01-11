@@ -11,3 +11,4 @@ default[:apt][:sources] = {
   }
 }
 
+default[:settings][:user] = "vagrant"

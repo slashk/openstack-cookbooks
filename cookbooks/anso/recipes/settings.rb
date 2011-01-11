@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: anso
-# Recipe:: default
+# Recipe:: settings
 #
 # Copyright 2011, Anso Labs
 #
@@ -17,3 +17,20 @@
 # limitations under the License.
 #
 
+package "git"
+package "vim-gtk"
+package "screen"
+package "exuberant-ctags"
+
+u = node['settings']['user']
+execute "git clone http://github.com/vishvananda/settings.git -b linux /home/#{u}/settings/" do
+  user u
+  group u
+  not_if "ls /home/#{u}/settings/"
+end
+
+execute "cd /home/#{u} && settings/link.sh" do
+  user u
+  group u
+  not_if "ls /home/#{u}/settings/.vimrc"
+end
