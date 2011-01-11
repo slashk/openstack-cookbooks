@@ -32,5 +32,5 @@ end
 execute "cd /home/#{u} && settings/link.sh" do
   user u
   group u
-  not_if "ls /home/#{u}/settings/.vimrc"
+  not_if "ls /home/#{u}/.vimrc"
 end
