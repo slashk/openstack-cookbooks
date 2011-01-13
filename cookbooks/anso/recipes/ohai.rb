@@ -29,7 +29,7 @@ wget -nc http://production.cf.rubygems.org/rubygems/rubygems-1.3.7.tgz
 tar zxf rubygems-1.3.7.tgz
 cd rubygems-1.3.7
 ruby setup.rb --no-format-executable
-gem install --no-rdoc --no-ri gemcutter jeweler rake
+gem install --no-rdoc --no-ri gemcutter jeweler rake chef
 gem install rspec -v 1.3.1
 cd /root
 git clone git://github.com/opscode/ohai.git
