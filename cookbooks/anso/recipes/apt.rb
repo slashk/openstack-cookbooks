@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: apt
-# Recipe:: anso
+# Cookbook Name:: anso
+# Recipe:: apt
 #
 # Copyright 2011, Anso Labs
 #

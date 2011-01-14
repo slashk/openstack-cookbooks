@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: anso
-# Recipe:: settings
+# Recipe:: tty
 #
 # Copyright 2011, Anso Labs
 #
@@ -17,20 +17,6 @@
 # limitations under the License.
 #
 
-package "git"
-package "vim-gtk"
-package "screen"
-package "exuberant-ctags"
-
-u = node['settings']['user']
-execute "git clone http://github.com/vishvananda/settings.git -b linux /home/#{u}/settings/" do
-  user u
-  group u
-  not_if File.exists?("/home/#{u}/settings/")
-end
-
-execute "cd /home/#{u} && settings/link.sh" do
-  user u
-  group u
-  not_if File.exists?("/home/#{u}/.vimrc")
+execute "curl -o /var/www/nginx-default/ami-tty.tgz --create-dirs http://images.ansolabs.com/ami-tty.tgz" do
+    not_if File.exists?("/var/www/nginx-default/ami-tty.tgz")
 end

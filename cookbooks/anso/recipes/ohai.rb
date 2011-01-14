@@ -53,5 +53,5 @@ end
 execute "bash /root/ohai.sh && touch /root/installed" do
   user "root"
   group "root"
-  not_if "ls /root/installed"
+  not_if File.exists?("/root/installed")
 end
