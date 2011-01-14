@@ -1,11 +1,15 @@
 {
-  "groupings": {
-  },
-  "recommendations": {
-  },
-  "attributes": {
+  "recipes": {
   },
   "suggestions": {
+  },
+  "platforms": {
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "conflicting": {
+  },
+  "description": "Installs/Configures nova",
+  "providing": {
   },
   "dependencies": {
     "runit": [
@@ -24,21 +28,17 @@
 
     ]
   },
-  "conflicting": {
-  },
-  "license": "Apache 2.0",
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "providing": {
-  },
-  "platforms": {
-  },
-  "version": "0.1.0",
   "maintainer": "Opscode, Inc.",
-  "name": "nova",
-  "recipes": {
+  "version": "0.1.0",
+  "attributes": {
   },
   "replacing": {
   },
   "maintainer_email": "oss@opscode.com",
-  "description": "Installs/Configures nova"
+  "groupings": {
+  },
+  "name": "nova",
+  "recommendations": {
+  },
+  "license": "Apache 2.0"
 }

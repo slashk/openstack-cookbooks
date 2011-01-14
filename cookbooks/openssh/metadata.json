@@ -1,17 +1,8 @@
 {
-  "suggestions": {
-  },
-  "license": "Apache 2.0",
   "recipes": {
   },
-  "conflicting": {
+  "suggestions": {
   },
-  "dependencies": {
-  },
-  "long_description": "",
-  "providing": {
-  },
-  "description": "Installs openssh",
   "platforms": {
     "debian": [
 
@@ -29,8 +20,18 @@
 
     ]
   },
+  "long_description": "",
+  "conflicting": {
+  },
+  "description": "Installs openssh",
+  "providing": {
+  },
+  "dependencies": {
+  },
   "maintainer": "Opscode, Inc.",
   "version": "0.7.0",
+  "attributes": {
+  },
   "replacing": {
   },
   "maintainer_email": "cookbooks@opscode.com",
@@ -39,6 +40,5 @@
   "name": "openssh",
   "recommendations": {
   },
-  "attributes": {
-  }
+  "license": "Apache 2.0"
 }

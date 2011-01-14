@@ -1,44 +1,32 @@
 {
-  "groupings": {
-  },
-  "recommendations": {
-  },
-  "attributes": {
+  "recipes": {
   },
   "suggestions": {
   },
+  "platforms": {
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "conflicting": {
+  },
+  "description": "Anso openstack helper scripts",
+  "providing": {
+  },
   "dependencies": {
-    "runit": [
-
-    ],
     "apt": [
-
-    ],
-    "python-ldap": [
-
-    ],
-    "openldap": [
-
-    ],
-    "build-essential": [
 
     ]
   },
-  "conflicting": {
-  },
-  "license": "Apache 2.0",
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
-  "providing": {
-  },
-  "platforms": {
-  },
+  "maintainer": "Anso Labs",
   "version": "0.1.0",
-  "maintainer": "Opscode, Inc.",
-  "name": "nova",
-  "recipes": {
+  "attributes": {
   },
   "replacing": {
   },
-  "maintainer_email": "oss@opscode.com",
-  "description": "Installs/Configures nova"
+  "maintainer_email": "support@ansolabs.com",
+  "groupings": {
+  },
+  "name": "anso",
+  "recommendations": {
+  },
+  "license": "Apache 2.0"
 }

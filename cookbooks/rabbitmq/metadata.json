@@ -1,18 +1,9 @@
 {
-  "suggestions": {
-  },
-  "license": "Apache 2.0",
   "recipes": {
     "rabbitmq::cluster": "Set up RabbitMQ clustering."
   },
-  "conflicting": {
+  "suggestions": {
   },
-  "dependencies": {
-  },
-  "long_description": "",
-  "providing": {
-  },
-  "description": "Installs and configures RabbitMQ server",
   "platforms": {
     "debian": [
 
@@ -21,16 +12,16 @@
 
     ]
   },
+  "long_description": "",
+  "conflicting": {
+  },
+  "description": "Installs and configures RabbitMQ server",
+  "providing": {
+  },
+  "dependencies": {
+  },
   "maintainer": "Benjamin Black",
   "version": "0.1.0",
-  "replacing": {
-  },
-  "maintainer_email": "b@b3k.us",
-  "groupings": {
-  },
-  "name": "rabbitmq",
-  "recommendations": {
-  },
   "attributes": {
     "rabbitmq/cluster": {
       "required": "optional",
@@ -172,5 +163,14 @@
       "display_name": "RabbitMQ",
       "description": "Hash of RabbitMQ attributes"
     }
-  }
+  },
+  "replacing": {
+  },
+  "maintainer_email": "b@b3k.us",
+  "groupings": {
+  },
+  "name": "rabbitmq",
+  "recommendations": {
+  },
+  "license": "Apache 2.0"
 }
