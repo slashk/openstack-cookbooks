@@ -21,11 +21,11 @@ package "unzip"
 
 execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} /var/lib/nova/nova.zip" do
   user 'nova'
-  not_if File.exists?("/var/lib/nova/nova.zip")
+  not_if { File.exists?("/var/lib/nova/nova.zip") }
 end
 
 execute "unzip /var/lib/nova/nova.zip -d #{node[:nova][:creds][:dir]}/" do
   user node[:nova][:creds][:user]
   group node[:nova][:creds][:group]
-  not_if File.exists?("#{node[:nova][:creds][:dir]}/novarc")
+  not_if { File.exists?("#{node[:nova][:creds][:dir]}/novarc") }
 end

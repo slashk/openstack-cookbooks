@@ -18,5 +18,5 @@
 #
 
 execute "curl -o /var/www/nginx-default/tty.tgz --create-dirs http://images.ansolabs.com/tty.tgz" do
-    not_if File.exists?("/var/www/nginx-default/tty.tgz")
+    not_if { File.exists?("/var/www/nginx-default/tty.tgz") }
 end

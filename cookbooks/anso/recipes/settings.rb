@@ -26,11 +26,11 @@ u = node['settings']['user']
 execute "git clone http://github.com/vishvananda/settings.git -b linux /home/#{u}/settings/" do
   user u
   group u
-  not_if File.exists?("/home/#{u}/settings/")
+  not_if { File.exists?("/home/#{u}/settings/") }
 end
 
 execute "cd /home/#{u} && settings/link.sh" do
   user u
   group u
-  not_if File.exists?("/home/#{u}/.vimrc")
+  not_if { File.exists?("/home/#{u}/.vimrc") }
 end
