@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-execute "curl -o /var/www/nginx-default/ami-tty.tgz --create-dirs http://images.ansolabs.com/ami-tty.tgz" do
-    not_if File.exists?("/var/www/nginx-default/ami-tty.tgz")
+execute "curl -o /var/www/nginx-default/tty.tgz --create-dirs http://images.ansolabs.com/tty.tgz" do
+    not_if File.exists?("/var/www/nginx-default/tty.tgz")
 end
