@@ -31,6 +31,14 @@ directory "/etc/nova" do
     action :create
 end
 
+connection_string = nil
+if [:node][:nova][:mysql] do
+  mysql = search(:node, 'recipes:nova\:\:mysql')[0]
+  if mysql do
+    connection_string = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:nova][:my_ip]}/#{mysql[:nova][:db][:database]}"
+  end
+end
+
 template "/etc/nova/nova.conf" do
   source "nova.conf.erb"
   owner "root"
