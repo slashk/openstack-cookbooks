@@ -36,20 +36,24 @@ sql_connection = nil
 env_filter = ''
 if node[:app_environment]
   env_filter = " AND app_environment:#{node[:app_environment]}"
+end
+
 
 if node[:nova][:mysql]
   package "python-mysqldb"
-  mysqls = search(:node, "recipes:nova\:\:mysql#{env_filter}")
+  mysqls = search(:node, "recipes:nova\\:\\:mysql#{env_filter}")
   if mysqls
     mysql = mysqls[0]
-    sql_connection = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:nova][:my_ip]}/#{mysql[:nova][:db][:database]}"
+    Chef::Log.info("Mysql server found at #{mysql[:mysql][:bind_address]}")
+    sql_connection = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:mysql][:bind_address]}/#{mysql[:nova][:db][:database]}"
   end
 end
 
 rabbit_settings = nil
-rabbits = search(:node, "recipes:nova\:\:rabbit#{env_filter}")
+rabbits = search(:node, "recipes:nova\\:\\:rabbit#{env_filter}")
 if rabbits
   rabbit = rabbits[0]
+  Chef::Log.info("Rabbit server found at #{rabbit[:rabbitmq][:address]}")
   rabbit_settings = {
     :address => rabbit[:rabbitmq][:address],
     :port => rabbit[:rabbitmq][:port],
@@ -64,7 +68,7 @@ template "/etc/nova/nova.conf" do
   owner "root"
   group "root"
   mode 0644
-  variables (
+  variables(
     :sql_connection => sql_connection,
     :rabbit_settings => rabbit_settings
   )

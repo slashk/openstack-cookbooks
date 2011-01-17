@@ -7,10 +7,10 @@
 --iscsi_ip_prefix=<%= node[:nova][:my_ip].split('.')[0..2].join('.') %>
 <% if @sql_connection %>--sql_connection=<%= @sql_connection %><% end %>
 <% if node[:nova][:libvirt_type] %>--libvirt_type=<%= node[:nova][:libvirt_type] %><% end %>
-<% if @rabbit_server %>
---rabbit_host=<%= @rabbit_server[:address] %>
---rabbit_port=<%= @rabbit_server[:port] %>
---rabbit_userid=<%= @rabbit_server[:user] %>
---rabbit_password=<%= @rabbit_server[:password] %>
---rabbit_virtual_host=<%= @rabbit_server[:vhost] %>
+<% if @rabbit_settings %>
+--rabbit_host=<%= @rabbit_settings[:address] %>
+--rabbit_port=<%= @rabbit_settings[:port] %>
+--rabbit_userid=<%= @rabbit_settings[:user] %>
+--rabbit_password=<%= @rabbit_settings[:password] %>
+--rabbit_virtual_host=<%= @rabbit_settings[:vhost] %>
 <% end %>
