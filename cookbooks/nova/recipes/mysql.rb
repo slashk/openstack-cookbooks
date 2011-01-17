@@ -22,6 +22,8 @@ execute "mysql-install-nova-privileges" do
   action :nothing
 end
 
+node[:mysql][:bind_address] = node[:nova][:my_ip]
+
 include_recipe "mysql::server"
 require 'rubygems'
 Gem.clear_paths
