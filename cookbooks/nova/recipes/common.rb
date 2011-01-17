@@ -34,9 +34,9 @@ end
 sql_connection = nil
 
 if node[:nova][:mysql]
+  package "python-mysqldb"
   mysql = search(:node, 'recipes:nova\:\:mysql')
   log "The result is #{mysql.to_s}"
-  raise 'die'
   if mysql
     db = mysql[0]
     sql_connection = "mysql://#{db[:nova][:db][:user]}:#{db[:nova][:db][:password]}@#{db[:nova][:my_ip]}/#{db[:nova][:db][:database]}"

@@ -25,4 +25,5 @@ default[:nova][:creds][:user] = "nova"
 default[:nova][:creds][:group] = "nogroup"
 default[:nova][:creds][:dir] = "/var/lib/nova"
 default[:nova][:my_ip] = ipaddress
+default[:nova][:mysql] = true
 default[:nova][:images] = []
