@@ -6,9 +6,10 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1"
 
 depends "apt"
+depends "build-essential"
 depends "mysql"
 depends "openldap"
 depends "openssl"
 depends "python-ldap"
-depends "build-essential"
+depends "rabbitmq"
 depends "runit"

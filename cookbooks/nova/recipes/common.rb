@@ -33,22 +33,39 @@ end
 
 sql_connection = nil
 
+env_filter = ''
+if node[:app_environment]
+  env_filter = " AND app_environment:#{node[:app_environment]}"
+
 if node[:nova][:mysql]
   package "python-mysqldb"
-  mysql = search(:node, 'recipes:nova\:\:mysql')
-  log "The result is #{mysql.to_s}"
-  if mysql
-    db = mysql[0]
-    sql_connection = "mysql://#{db[:nova][:db][:user]}:#{db[:nova][:db][:password]}@#{db[:nova][:my_ip]}/#{db[:nova][:db][:database]}"
+  mysqls = search(:node, "recipes:nova\:\:mysql#{env_filter}")
+  if mysqls
+    mysql = mysqls[0]
+    sql_connection = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:nova][:my_ip]}/#{mysql[:nova][:db][:database]}"
   end
 end
 
-log "sql connection set to '#{sql_connection}'"
+rabbit_settings = nil
+rabbits = search(:node, "recipes:nova\:\:rabbit#{env_filter}")
+if rabbits
+  rabbit = rabbits[0]
+  rabbit_settings = {
+    :address => rabbit[:rabbitmq][:address],
+    :port => rabbit[:rabbitmq][:port],
+    :user => rabbit[:nova][:rabbit][:user],
+    :password => rabbit[:nova][:rabbit][:password],
+    :vhost => rabbit[:nova][:rabbit][:vhost]
+  }
+end
 
 template "/etc/nova/nova.conf" do
   source "nova.conf.erb"
   owner "root"
   group "root"
   mode 0644
-  variables ( :sql_connection => sql_connection )
+  variables (
+    :sql_connection => sql_connection,
+    :rabbit_settings => rabbit_settings
+  )
 end

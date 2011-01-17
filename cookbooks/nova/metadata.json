@@ -32,6 +32,9 @@
     ],
     "build-essential": [
 
+    ],
+    "rabbitmq": [
+
     ]
   },
   "maintainer": "Opscode, Inc.",
