@@ -1,5 +1,6 @@
 
 default[:apt][:distro] = "maverick"
+default[:apt][:proxy_url] = nil
 default[:apt][:sources] = {
   :anso => {
     :url => "http://packages.ansolabs.com/",
