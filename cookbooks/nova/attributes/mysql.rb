@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nova
-# Attributes:: default
+# Attributes:: mysql
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -16,13 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
-default[:nova][:install_type] = "binary"
-default[:nova][:compute_connection_type] = "qemu"
-default[:nova][:user] = "admin"
-default[:nova][:project] = "admin"
-default[:nova][:creds][:user] = "nova"
-default[:nova][:creds][:group] = "nogroup"
-default[:nova][:creds][:dir] = "/var/lib/nova"
-default[:nova][:my_ip] = ipaddress
-default[:nova][:images] = []
+set_unless[:nova][:db][:password] = secure_password
+default[:nova][:db][:user] = "nova"
+default[:nova][:db][:database] = "nova"

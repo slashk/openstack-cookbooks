@@ -3,8 +3,7 @@
 --logdir=/var/log/nova
 --state_path=/var/lib/nova
 --verbose
-<% if node[:nova][:my_ip] %>
 --my_ip=<%= node[:nova][:my_ip] %>
 --iscsi_ip_prefix=<%= node[:nova][:my_ip].split('.')[0..2].join('.') %>
-<% end %>
+<% if @sql_connection %>--sql_connection=<%= @sql_connection %><% end %>
 <% if node[:nova][:libvirt_type] %>--libvirt_type=<%= node[:nova][:libvirt_type] %><% end %>

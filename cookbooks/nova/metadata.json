@@ -15,6 +15,12 @@
     "runit": [
 
     ],
+    "mysql": [
+
+    ],
+    "openssl": [
+
+    ],
     "apt": [
 
     ],

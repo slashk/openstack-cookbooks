@@ -31,17 +31,24 @@ directory "/etc/nova" do
     action :create
 end
 
-connection_string = nil
-if [:node][:nova][:mysql] do
-  mysql = search(:node, 'recipes:nova\:\:mysql')[0]
-  if mysql do
-    connection_string = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:nova][:my_ip]}/#{mysql[:nova][:db][:database]}"
+sql_connection = nil
+
+if node[:nova][:mysql]
+  mysql = search(:node, 'recipes:nova\:\:mysql')
+  log "The result is #{mysql.to_s}"
+  raise 'die'
+  if mysql
+    db = mysql[0]
+    sql_connection = "mysql://#{db[:nova][:db][:user]}:#{db[:nova][:db][:password]}@#{db[:nova][:my_ip]}/#{db[:nova][:db][:database]}"
   end
 end
+
+log "sql connection set to '#{sql_connection}'"
 
 template "/etc/nova/nova.conf" do
   source "nova.conf.erb"
   owner "root"
   group "root"
   mode 0644
+  variables ( :sql_connection => sql_connection )
 end
