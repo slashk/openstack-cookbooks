@@ -75,6 +75,25 @@ rabbit_settings = {
   :vhost => rabbit[:nova][:rabbit][:vhost]
 }
 
+execute "nova-manage db sync" do
+  user "nova"
+  action :nothing
+end
+
+file "/etc/default/nova-common" do
+  content <<-EOH
+# defaults file for all the nova services
+#
+# Setting this to 1 will allow the services to run, it is set to 0 by default
+# to prevent the services from running until they have been configured.
+# ENABLED=1
+EOH
+  owner "root"
+  group "root"
+  mode 0644
+  action :nothing
+end
+
 template "/etc/nova/nova.conf" do
   source "nova.conf.erb"
   owner "root"
@@ -84,4 +103,6 @@ template "/etc/nova/nova.conf" do
     :sql_connection => sql_connection,
     :rabbit_settings => rabbit_settings
   )
+  notifies :run, resources(:execute => "nova-manage db sync"), :immediately
+  notifies :create, resources(:file => "/etc/default/nova-common"), :immediately
 end

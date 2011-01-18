@@ -40,7 +40,7 @@ module NovaPackage
         end
         supports :status => true, :restart => true, :reload => true
         action :nothing
-        subscribes :restart, resources(:template => "/etc/nova/nova.conf")
+        subscribes :restart, resources(:file => "/etc/default/nova-common")
       end
     end
   end
