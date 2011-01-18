@@ -31,7 +31,7 @@ end
 file "/etc/default/iscsitarget" do
   content <<-EOH
 ISCSITARGET_ENABLE=true
-  EOH
+EOH
   owner "root"
   group "root"
   mode 0644
