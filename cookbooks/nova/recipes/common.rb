@@ -25,43 +25,55 @@ package "nova-common" do
 end
 
 directory "/etc/nova" do
-    owner "root"
-    group "root"
-    mode 0755
-    action :create
+  owner "root"
+  group "root"
+  mode 0755
+  action :create
 end
-
-sql_connection = nil
 
 env_filter = ''
 if node[:app_environment]
   env_filter = " AND app_environment:#{node[:app_environment]}"
 end
 
-
+sql_connection = nil
 if node[:nova][:mysql]
+  Chef::Log.info("Using mysql")
   package "python-mysqldb"
-  mysqls = search(:node, "recipes:nova\\:\\:mysql#{env_filter}")
+  mysqls = nil
+
+  unless Chef::Config[:solo]
+    mysqls = search(:node, "recipes:nova\\:\\:mysql#{env_filter}")
+  end
   if mysqls
     mysql = mysqls[0]
     Chef::Log.info("Mysql server found at #{mysql[:mysql][:bind_address]}")
-    sql_connection = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:mysql][:bind_address]}/#{mysql[:nova][:db][:database]}"
+  else
+    mysql = node
+    Chef::Log.info("Using local mysql at  #{mysql[:mysql][:bind_address]}")
   end
+  sql_connection = "mysql://#{mysql[:nova][:db][:user]}:#{mysql[:nova][:db][:password]}@#{mysql[:mysql][:bind_address]}/#{mysql[:nova][:db][:database]}"
 end
 
-rabbit_settings = nil
-rabbits = search(:node, "recipes:nova\\:\\:rabbit#{env_filter}")
+rabbits = nil
+unless Chef::Config[:solo]
+  rabbits = search(:node, "recipes:nova\\:\\:rabbit#{env_filter}")
+end
 if rabbits
   rabbit = rabbits[0]
   Chef::Log.info("Rabbit server found at #{rabbit[:rabbitmq][:address]}")
-  rabbit_settings = {
-    :address => rabbit[:rabbitmq][:address],
-    :port => rabbit[:rabbitmq][:port],
-    :user => rabbit[:nova][:rabbit][:user],
-    :password => rabbit[:nova][:rabbit][:password],
-    :vhost => rabbit[:nova][:rabbit][:vhost]
-  }
+else
+  rabbit = node
+  Chef::Log.info("Using local rabbit at #{rabbit[:rabbitmq][:address]}")
 end
+
+rabbit_settings = {
+  :address => rabbit[:rabbitmq][:address],
+  :port => rabbit[:rabbitmq][:port],
+  :user => rabbit[:nova][:rabbit][:user],
+  :password => rabbit[:nova][:rabbit][:password],
+  :vhost => rabbit[:nova][:rabbit][:vhost]
+}
 
 template "/etc/nova/nova.conf" do
   source "nova.conf.erb"
