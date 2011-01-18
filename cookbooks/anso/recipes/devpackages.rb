@@ -25,5 +25,5 @@ apt_repository "anso" do
   uri "http://devpackages.ansolabs.com/"
   distribution node[:apt][:distro]
   components(["main"])
-  action :run
+  action :add
 end
