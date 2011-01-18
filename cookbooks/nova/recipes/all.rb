@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "nova::mysql"
+include_recipe "nova::rabbit"
 include_recipe "nova::common"
 include_recipe "nova::api"
 include_recipe "nova::scheduler"
