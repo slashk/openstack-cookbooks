@@ -7,9 +7,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ end
 
 execute "python tools/install_venv.py" do
   cwd node[:nova][:local_branch_dir]
-  not_if { { File.exists?(File.join(node[:nova][:local_branch_dir], ".nova-venv/bin/activate")) } }
+  not_if { File.exists?(File.join(node[:nova][:local_branch_dir], ".nova-venv/bin/activate")) }
 end
 
 file File.join(node[:nova][:local_branch_dir], "/.nova-venv/lib/python2.6/site-packages/nova.pth") do
@@ -58,11 +58,11 @@ end
 bash "create project zipfile" do
   code "./tools/with_venv.sh ./bin/nova-manage project zip admin admin"
   cwd node[:nova][:local_branch_dir]
-  not_if { { File.exists?(File.join(node[:nova][:local_branch_dir], "nova.zip")) } }
+  not_if { File.exists?(File.join(node[:nova][:local_branch_dir], "nova.zip")) }
 end
 
 execute "unzip nova.zip" do
   cwd node[:nova][:local_branch_dir]
-  not_if { { File.exists?(File.join(node[:nova][:local_branch_dir], "novarc")) } }
+  not_if { File.exists?(File.join(node[:nova][:local_branch_dir], "novarc")) }
 end
 
