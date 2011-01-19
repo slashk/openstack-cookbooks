@@ -22,7 +22,7 @@ package "git"
 file "/root/cookbooks.sh" do
   content <<-EOH
 git clone #{node[:cookbooks][:url]} -b #{node[:cookbooks][:branch]} openstack-cookbooks
-knife configure -i --defaults -r="" -u #{node[:cookbooks][:user]}
+knife configure -i -y --defaults -r="" -u #{node[:cookbooks][:user]}
 knife cookbook upload -o openstack-cookbooks/cookbooks -a
 EOH
   owner "root"
