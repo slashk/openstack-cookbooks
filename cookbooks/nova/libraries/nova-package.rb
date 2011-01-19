@@ -36,10 +36,10 @@ module NovaPackage
           restart_command "restart #{nova_name}"
           stop_command "stop #{nova_name}"
           start_command "start #{nova_name}"
-          status_command "status #{nova_name}"
+          status_command "status #{nova_name} | cut -d' ' -f2 | cut -d'/' -f1 | grep start"
         end
-        supports :status => true, :restart => true, :reload => true
-        action :nothing
+        supports :status => true, :restart => true
+        action :start
         subscribes :restart, resources(:file => "/etc/default/nova-common")
       end
     end
