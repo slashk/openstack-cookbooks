@@ -24,7 +24,6 @@ file "/root/cookbooks.sh" do
 git clone #{node[:cookbooks][:url]} -b #{node[:cookbooks][:branch]} openstack-cookbooks
 knife configure -i --defaults -r="" -u #{node[:cookbooks][:user]}
 knife cookbook upload -o openstack-cookbooks/cookbooks -a
-knife role upload -o openstack-cookbooks/roles -a
 EOH
   owner "root"
   group "root"
