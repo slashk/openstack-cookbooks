@@ -86,7 +86,7 @@ file "/etc/default/nova-common" do
 #
 # Setting this to 1 will allow the services to run, it is set to 0 by default
 # to prevent the services from running until they have been configured.
-# ENABLED=1
+ENABLED=1
 EOH
   owner "root"
   group "root"
