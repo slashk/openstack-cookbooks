@@ -17,4 +17,5 @@
 # limitations under the License.
 #
 
-set_unless[:name] = "nova"
+# hostname to use if node[:name] is not set
+default[:nova][:hostname] = "nova"
