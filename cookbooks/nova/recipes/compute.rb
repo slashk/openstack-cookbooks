@@ -22,3 +22,18 @@ class Chef::Recipe
 end
 
 nova_package("compute")
+
+if node[:nova][:compute_connection_type] = "kvm" do
+  service "libvirt-bin" do
+    notifies :restart, resources(:service => "nova-compute"), :immediately
+  end
+
+  execute "modprobe kvm" do
+    action :run
+    notifies :restart, resources(:service => "libvirt-bin"), :immediately
+  end
+end
+
+execute "modprobe nbd" do
+  action :run
+end
