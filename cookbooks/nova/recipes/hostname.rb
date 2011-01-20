@@ -17,11 +17,15 @@
 # limitations under the License.
 #
 
-domain = node[:fqdn].split('.')[1..-1].join('.')
+unless  node.name.nil? || node.name.empty?
+  node[:nova][:hostname] = node.name
+end
 
 execute "/root/hostname.sh" do
   action :nothing
 end
+
+domain = node[:fqdn].split('.')[1..-1].join('.')
 
 template "/root/hostname.sh" do
   source "hostname.erb"
@@ -30,7 +34,7 @@ template "/root/hostname.sh" do
   mode 0755
   variables(
     :ip => node[:nova][:my_ip],
-    :hostname => node.name.nil? || node.name.empty? ? node[:nova][:hostname] : node.name,
+    :hostname => node[:nova][:hostname],
     :domain => domain
   )
   notifies :run, resources(:execute => "/root/hostname.sh"), :immediately
