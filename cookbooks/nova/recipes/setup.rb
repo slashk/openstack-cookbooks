@@ -38,6 +38,11 @@ execute "nova-manage network create 10.0.0.0/24 8 32" do
   not_if { File.exists?("/var/lib/nova/setup") }
 end
 
+execute "nova-manage floating create #{node[:hostname]} #{node[:nova][:floating_range]}" do
+  user 'nova'
+  not_if { File.exists?("/var/lib/nova/setup") }
+end
+
 (node[:nova][:images] or []).each do |image|
   execute "curl #{image} | tar xvz -C /var/lib/nova/images" do
     user 'nova'
