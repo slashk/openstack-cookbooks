@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-unless  node.name.nil? || node.name.empty?
+unless Chef::Config[:solo]
   node[:nova][:hostname] = node.name
 end
 
