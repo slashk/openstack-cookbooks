@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+default[:nova][:hostname] = "nova"
 default[:nova][:install_type] = "binary"
 default[:nova][:compute_connection_type] = "qemu"
 default[:nova][:user] = "admin"
