@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-default[:name] = "nova"
+set_unless[:name] = "nova"
