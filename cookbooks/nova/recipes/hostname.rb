@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nova
-# Recipe:: creds
+# Recipe:: hostname
 #
 # Copyright 2011, Anso Labs
 #
@@ -17,15 +17,21 @@
 # limitations under the License.
 #
 
-package "unzip"
+domain = node[:fqdn].split('.')[1..-1].join('.')
 
-execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} /var/lib/nova/nova.zip" do
-  user 'nova'
-  not_if { File.exists?("/var/lib/nova/nova.zip") }
+execute "/root/hostname.sh" do
+  action :nothing
 end
 
-execute "unzip /var/lib/nova/nova.zip -d #{node[:nova][:creds][:dir]}/" do
-  user node[:nova][:creds][:user]
-  group node[:nova][:creds][:group]
-  not_if { File.exists?("#{node[:nova][:creds][:dir]}/novarc") }
+template "/root/hostname.sh" do
+  source "hostname.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  variables(
+    :ip => node[:nova][:my_ip],
+    :hostname => node[:name],
+    :domain => domain
+  )
+  notifies :run, resources(:execute => "/root/hostname.sh"), :immediately
 end
