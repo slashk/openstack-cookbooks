@@ -23,7 +23,7 @@ end
 
 nova_package("compute")
 
-if node[:nova][:compute_connection_type] = "kvm" do
+if node[:nova][:compute_connection_type] == "kvm"
   service "libvirt-bin" do
     notifies :restart, resources(:service => "nova-compute"), :immediately
   end
