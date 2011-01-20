@@ -30,7 +30,7 @@ template "/root/hostname.sh" do
   mode 0755
   variables(
     :ip => node[:nova][:my_ip],
-    :hostname => node[:name].nil? || node[:name].empty? ? node[:nova][:hostname] : node[:name],
+    :hostname => node.name.nil? || node.name.empty? ? node[:nova][:hostname] : node.name,
     :domain => domain
   )
   notifies :run, resources(:execute => "/root/hostname.sh"), :immediately
