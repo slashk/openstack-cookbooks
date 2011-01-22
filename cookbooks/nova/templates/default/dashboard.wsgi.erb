@@ -1,0 +1,44 @@
+import logging
+import os
+import site
+import sys
+import django.core.handlers.wsgi
+from django.conf import settings
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'dashboard.settings'
+sys.stdout = sys.stderr
+
+DEBUG = False
+
+vepath = '#{node[:nova][:dashboard][:dashboard_dir]/.dashboard-venv/lib/python2.5/site-packages'
+prev_sys_path = list(sys.path)
+
+# add the site-packages of our virtualenv as a site dir
+site.addsitedir(vepath)
+sys.path.append('#{node[:nova][:dashboard][:dashboard_dir]}')
+
+# reorder sys.path so new directories from the addsitedir show up first
+new_sys_path = [p for p in sys.path if p not in prev_sys_path]
+for item in new_sys_path:
+    sys.path.remove(item)
+sys.path[:0] = new_sys_path
+
+
+class WSGIRequest(django.core.handlers.wsgi.WSGIRequest):
+    def is_secure(self):
+        value = self.META.get('wsgi.url_scheme', '').lower()
+        if value == 'https':
+            return True
+        return False
+
+class WSGIHandler(django.core.handlers.wsgi.WSGIHandler):
+    request_class = WSGIRequest
+
+_application = WSGIHandler()
+
+def application(environ, start_response):
+    environ['PATH_INFO'] = environ['SCRIPT_NAME'] + environ['PATH_INFO']
+    environ['wsgi.url_scheme'] = environ.get('HTTP_X_URL_SCHEME', 'http')
+
+    return _application(environ, start_response)
+
