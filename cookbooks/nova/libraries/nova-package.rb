@@ -32,7 +32,7 @@ module NovaPackage
         status_command "status #{nova_name} | cut -d' ' -f2 | cut -d'/' -f1 | grep start"
       end
       supports :status => true, :restart => true
-      action :start
+      action :nothing
       subscribes :restart, resources(:file => "/etc/default/nova-common")
     end
   end

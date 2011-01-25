@@ -6,6 +6,7 @@
 --my_ip=<%= node[:nova][:my_ip] %>
 --public_interface=<%= node[:nova][:public_interface] %>
 --iscsi_ip_prefix=<%= node[:nova][:my_ip].split('.')[0..2].join('.') %>
+--s3_host=<%= @s3_host %>
 <% if @sql_connection %>--sql_connection=<%= @sql_connection %><% end %>
 <% if node[:nova][:libvirt_type] %>--libvirt_type=<%= node[:nova][:libvirt_type] %><% end %>
 <% if @rabbit_settings %>

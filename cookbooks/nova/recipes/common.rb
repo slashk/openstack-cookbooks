@@ -67,6 +67,18 @@ else
   Chef::Log.info("Using local rabbit at #{rabbit[:rabbitmq][:address]}")
 end
 
+objectstores = nil
+unless Chef::Config[:solo]
+  objectstores = search(:node, "recipes:nova\\:\\:objectstore#{env_filter}")
+end
+if objectstores
+  objectstore = objectstores[0]
+  Chef::Log.info("Objectstore server found at #{objectstore[:nova][:my_ip]}")
+else
+  objectstore = node
+  Chef::Log.info("Objectstore server found at #{objectstore[:nova][:my_ip]}")
+end
+
 rabbit_settings = {
   :address => rabbit[:rabbitmq][:address],
   :port => rabbit[:rabbitmq][:port],
@@ -101,8 +113,9 @@ template "/etc/nova/nova.conf" do
   mode 0644
   variables(
     :sql_connection => sql_connection,
-    :rabbit_settings => rabbit_settings
+    :rabbit_settings => rabbit_settings,
+    :s3_host => objectstore[:nova][:my_ip]
   )
   notifies :run, resources(:execute => "nova-manage db sync"), :immediately
-  notifies :create, resources(:file => "/etc/default/nova-common"), :immediately
+  notifies :touch, resources(:file => "/etc/default/nova-common"), :immediately
 end
