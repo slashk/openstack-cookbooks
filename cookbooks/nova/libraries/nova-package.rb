@@ -20,28 +20,20 @@
 module NovaPackage
   def nova_package(name)
     nova_name = "nova-#{name}"
-    case node[:nova][:install_type]
-    when "source"
-      include_recipe "nova::source"
-      runit_service nova_name
-    when "binary"
-      include_recipe "apt"
-      include_recipe "nova::common"
-      package nova_name do
-        options "--force-yes"
-        action :install
+    package nova_name do
+      options "--force-yes"
+      action :install
+    end
+    service nova_name do
+      if (platform?("ubuntu") && node.platform_version.to_f >= 10.04)
+        restart_command "restart #{nova_name}"
+        stop_command "stop #{nova_name}"
+        start_command "start #{nova_name}"
+        status_command "status #{nova_name} | cut -d' ' -f2 | cut -d'/' -f1 | grep start"
       end
-      service nova_name do
-        if (platform?("ubuntu") && node.platform_version.to_f >= 10.04)
-          restart_command "restart #{nova_name}"
-          stop_command "stop #{nova_name}"
-          start_command "start #{nova_name}"
-          status_command "status #{nova_name} | cut -d' ' -f2 | cut -d'/' -f1 | grep start"
-        end
-        supports :status => true, :restart => true
-        action :start
-        subscribes :restart, resources(:file => "/etc/default/nova-common")
-      end
+      supports :status => true, :restart => true
+      action :start
+      subscribes :restart, resources(:file => "/etc/default/nova-common")
     end
   end
 end

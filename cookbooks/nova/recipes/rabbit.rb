@@ -43,3 +43,10 @@ execute "rabbitmqctl set_permissions -p #{node[:nova][:rabbit][:vhost]}  #{node[
   subscribes :run, resources(:service => "rabbitmq-server"), :immediately
   action :nothing
 end
+
+# save data so it can be found by search
+unless Chef::Config[:solo]
+  Chef::Log.info("Saving node data")
+  node.save
+end
+
