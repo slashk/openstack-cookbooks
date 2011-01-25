@@ -10,7 +10,7 @@ sys.stdout = sys.stderr
 
 DEBUG = False
 
-vepath = '#{node[:nova][:dashboard][:dashboard_dir]/.dashboard-venv/lib/python2.5/site-packages'
+vepath = '#{node[:nova][:dashboard][:dashboard_dir]}/.dashboard-venv/lib/python2.6/site-packages'
 prev_sys_path = list(sys.path)
 
 # add the site-packages of our virtualenv as a site dir
