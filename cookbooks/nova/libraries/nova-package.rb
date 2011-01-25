@@ -33,7 +33,7 @@ module NovaPackage
       end
       supports :status => true, :restart => true
       action :start
-      subscribes :restart, resources(:file => "/etc/default/nova-common")
+      subscribes :restart, resources(:file => "/etc/nova/nova.conf")
     end
   end
 end
