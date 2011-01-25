@@ -21,4 +21,5 @@ class Chef::Recipe
   include NovaPackage
 end
 
+include_recipe "nova::common"
 nova_package("network")
