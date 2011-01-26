@@ -1,4 +1,4 @@
-default[:nova][:dashboard][:admin_email] = "vagrant@localhost"
+default[:nova][:dashboard][:admin_email] = "vagrant@example.com"
 default[:nova][:dashboard][:admin_username] = "vagrant"
 default[:nova][:dashboard][:deploy_dir] = "/srv"
 default[:nova][:dashboard][:dashboard_dir] = File.join(node[:nova][:dashboard][:deploy_dir], "openstack-dashboard")
