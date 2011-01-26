@@ -1,3 +1,5 @@
+package "python-pip"
+package "python-virtualenv"
 package "bzr"
 package "apache2"
 package "libapache2-mod-wsgi"
@@ -25,12 +27,16 @@ execute "bzr branch #{node[:nova][:dashboard][:dashboard_branch]} #{node[:nova][
     cwd node[:nova][:dashboard][:deploy_dir]
 end
 
+file "/usr/lib/python2.6/dist-packages/dashboard.pth" do
+  content node[:nova][:dashboard][:dashboard_dir]
+end
+
 execute "python setup.py install" do
     cwd node[:nova][:dashboard][:django_nova_dir]
 end
 
-execute "python tools/install_venv.py" do
-    cwd node[:nova][:dashboard][:dashboard_dir]
+execute "pip install -r #{node[:nova][:dashboard][:django_nova_dir]}/tools/pip-requires" do
+    cwd node[:nova][:dashboard][:django_nova_dir]
 end
 
 template "#{node[:nova][:dashboard][:dashboard_dir]}/local/local_settings.py" do
@@ -44,6 +50,7 @@ template "#{node[:nova][:dashboard][:dashboard_dir]}/local/dashboard.wsgi" do
     owner "root"
     group "root"
     source "dashboard.wsgi.erb"
+    mode "0644"
 end
 
 template "#{node[:nova][:dashboard][:apache_dir]}/sites-available/default" do
