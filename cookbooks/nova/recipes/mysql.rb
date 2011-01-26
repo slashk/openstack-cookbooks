@@ -24,6 +24,8 @@ end
 
 node[:mysql][:bind_address] = node[:nova][:my_ip]
 
+Chef::Log.info("Mysql recipe included")
+
 include_recipe "mysql::server"
 require 'rubygems'
 Gem.clear_paths
@@ -51,12 +53,8 @@ execute "create #{node[:nova][:db][:database]} database" do
   end
 end
 
-# save node data after writing the MYSQL root password, so that a failed chef-client run that gets this far doesn't cause an unknown password to get applied to the box without being saved in the node data.
+# save data so it can be found by search
 unless Chef::Config[:solo]
-  ruby_block "save node data" do
-    block do
-      node.save
-    end
-    action :create
-  end
+  Chef::Log.info("Saving node data")
+  node.save
 end

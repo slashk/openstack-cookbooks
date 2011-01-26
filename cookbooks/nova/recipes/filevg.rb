@@ -24,9 +24,9 @@ include_recipe "apt"
   end
 end
 
-execute "dd if=/dev/zero of=/root/nova-volumes bs=1M seek=1039 count=1" do
+execute "truncate -s 10G /root/nova-volumes" do
   user "root"
-  not_if "ls /root/nova-volumes || vgs --noheadings -o name | grep nova-volumes"
+  not_if { File.exists?("/root/nova-volumes/") }
 end
 
 execute "losetup /dev/loop0 /root/nova-volumes" do

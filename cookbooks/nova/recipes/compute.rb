@@ -21,6 +21,7 @@ class Chef::Recipe
   include NovaPackage
 end
 
+include_recipe "nova::common"
 nova_package("compute")
 
 if node[:nova][:compute_connection_type] == "kvm"
