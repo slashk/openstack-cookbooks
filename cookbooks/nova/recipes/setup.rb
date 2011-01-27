@@ -23,7 +23,7 @@ include_recipe "apt"
 package "euca2ools"
 package "curl"
 
-execute "nova-manage user admin #{node[:nova][:user]}" do
+execute "nova-manage user admin #{node[:nova][:user]} #{node[:nova][:access_key]} #{node[:nova][:secret_key]}" do
   user 'nova'
   not_if "nova-manage user list | grep #{node[:nova][:user]}"
 end

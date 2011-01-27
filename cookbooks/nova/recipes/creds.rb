@@ -19,6 +19,8 @@
 
 package "unzip"
 
+include_attribute "nova::setup"
+
 execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} /var/lib/nova/nova.zip" do
   user 'nova'
   not_if { File.exists?("/var/lib/nova/nova.zip") }
