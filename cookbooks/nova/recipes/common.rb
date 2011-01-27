@@ -45,7 +45,7 @@ if node[:nova][:mysql]
   unless Chef::Config[:solo]
     mysqls = search(:node, "recipes:nova\\:\\:mysql#{env_filter}")
   end
-  if mysqls
+  if mysqls and mysqls[0]
     mysql = mysqls[0]
     Chef::Log.info("Mysql server found at #{mysql[:mysql][:bind_address]}")
   else
@@ -59,7 +59,7 @@ rabbits = nil
 unless Chef::Config[:solo]
   rabbits = search(:node, "recipes:nova\\:\\:rabbit#{env_filter}")
 end
-if rabbits
+if rabbits and rabbits[0]
   rabbit = rabbits[0]
   Chef::Log.info("Rabbit server found at #{rabbit[:rabbitmq][:address]}")
 else
