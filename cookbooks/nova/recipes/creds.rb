@@ -27,6 +27,7 @@ user node[:nova][:creds][:user] do
   comment "Nova User"
   home node[:nova][:creds][:dir]
   shell "/bin/bash"
+  not_if "grep #{node[:nova][:creds][:user]} /etc/passwd"
 end
 
 directory node[:nova][:creds][:dir] do
