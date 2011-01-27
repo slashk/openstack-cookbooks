@@ -31,7 +31,7 @@ file "/usr/lib/python2.6/dist-packages/dashboard.pth" do
   content node[:nova][:dashboard][:dashboard_dir]
 end
 
-execute "python setup.py install" do
+execute "python setup.py develop" do
     cwd node[:nova][:dashboard][:django_nova_dir]
 end
 
@@ -40,15 +40,16 @@ execute "pip install -r #{node[:nova][:dashboard][:dashboard_dir]}/tools/pip-req
 end
 
 template "#{node[:nova][:dashboard][:dashboard_dir]}/local/local_settings.py" do
-    owner "root"
-    group "root"
     source "dashboard.local_settings.erb"
     mode "0644"
 end
 
+template "#{node[:nova][:dashboard][:dashboard_dir]}/local/initial_data.json" do
+    source "dashboard.initial_data.json.rb"
+    mode "0644"
+end
+
 template "#{node[:nova][:dashboard][:apache_dir]}/sites-available/default" do
-  owner "root"
-  group "root"
   source "dashboard.apache.erb"
   mode "0644"
 end
@@ -57,9 +58,11 @@ execute "python manage.py syncdb --noinput" do
     cwd "#{node[:nova][:dashboard][:dashboard_dir]}/dashboard"
 end
 
-execute "python manage.py createsuperuser --username=#{node[:nova][:dashboard][:admin_username]} --email=#{node[:nova][:dashboard][:admin_email]} --noinput" do
+execute "python manage.py loaddata #{node[:nova][:dashboard][:dashboard_dir]}/local/initial_data.json" do
     cwd "#{node[:nova][:dashboard][:dashboard_dir]}/dashboard"
 end
+
+execute "chown -R www-data:www-data #{noda[:nova][:dashboard][:dashboard_dir]}/local"
 
 execute "/etc/init.d/apache2 restart"
 
