@@ -17,6 +17,26 @@
 # limitations under the License.
 #
 
+group node[:nova][:creds][:group] do
+  action :create
+  group_name node[:nova][:creds][:group]
+end
+
+user node[:nova][:creds][:user] do
+  group node[:nova][:creds][:group]
+  comment "Nova User"
+  home node[:nova][:creds][:dir]
+  shell "/bin/bash"
+  not_if "grep #{node[:nova][:creds][:user]} /etc/passwd"
+end
+
+directory node[:nova][:creds][:dir] do
+  owner node[:nova][:creds][:user]
+  group node[:nova][:creds][:group]
+  mode "0700"
+  action :create
+end
+
 package "unzip"
 
 execute "nova-manage project zipfile #{node[:nova][:project]} #{node[:nova][:user]} /var/lib/nova/nova.zip" do
