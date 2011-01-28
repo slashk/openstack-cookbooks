@@ -45,7 +45,7 @@ template "#{node[:nova][:dashboard][:dashboard_dir]}/local/local_settings.py" do
 end
 
 template "#{node[:nova][:dashboard][:dashboard_dir]}/local/initial_data.json" do
-    source "dashboard.initial_data.json.rb"
+    source "dashboard.initial_data.json.erb"
     mode "0644"
 end
 
@@ -58,11 +58,11 @@ execute "python manage.py syncdb --noinput" do
     cwd "#{node[:nova][:dashboard][:dashboard_dir]}/dashboard"
 end
 
-execute "python manage.py loaddata #{node[:nova][:dashboard][:dashboard_dir]}/local/initial_data.json" do
+execute "python manage.py loaddata ../local/initial_data.json" do
     cwd "#{node[:nova][:dashboard][:dashboard_dir]}/dashboard"
 end
 
-execute "chown -R www-data:www-data #{noda[:nova][:dashboard][:dashboard_dir]}/local"
+execute "chown -R www-data:www-data #{node[:nova][:dashboard][:dashboard_dir]}/local"
 
 execute "/etc/init.d/apache2 restart"
 

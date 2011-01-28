@@ -12,7 +12,7 @@ DATABASES = {
 }
 
 NOVA_DEFAULT_ENDPOINT = 'http://<%=node[:nova][:my_ip]%>:8773/services/Cloud'
-NOVA_DEFAULT_REGION = 'one'
+NOVA_DEFAULT_REGION = '<%=node[:nova][:dashboard][:default_region]%>'
 NOVA_ACCESS_KEY = '<%=node[:nova][:access_key]%>'
 NOVA_SECRET_KEY = '<%=node[:nova][:secret_key]%>'
 

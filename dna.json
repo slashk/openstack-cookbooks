@@ -7,8 +7,4 @@
     "launchpad_login": "adamhjk",
     "bzr_email": "adam@opscode.com"
   },
-  "nova": {
-    "access_key": "Frs9bc7eu5aw1hAohM6s",
-    "secret_key": "iPvNdiaA0lFZ9ikl7WYo"
-  }
 }
