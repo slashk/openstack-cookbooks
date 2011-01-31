@@ -18,5 +18,5 @@
 --rabbit_virtual_host=<%= @rabbit_settings[:vhost] %>
 <% end %>
 <% if @flatdhcp %>
---network_manager=nova.network.manager.FlatDCHPManager
+--network_manager=nova.network.manager.FlatDHCPManager
 <% end %>
