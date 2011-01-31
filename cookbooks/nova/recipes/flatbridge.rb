@@ -24,18 +24,18 @@ end
 
 file "/root/flatbridge.sh" do
   content <<-EOH
-IP=#{node[:nova][:my_ip]}#{node[:nova][:cidr_suffix]}
+IP=#{node[:nova][:my_ip]}
 BRIDGE=#{node[:nova][:bridge]}
-ETH=`ip addr | grep $IP | cut -d' ' -f11`
-print $ETH
+ETH=`ip addr | grep $IP | awk '{print $NF}'`
 if [ "$ETH" == "$BRIDGE" ]; then
   exit
 fi
 brctl addbr $BRIDGE
 brctl addif $BRIDGE $ETH
 ifconfig $BRIDGE up
-ip addr del $IP scope global dev $ETH
-ip addr add $IP scope global dev $BRIDGE
+PARAMS=`ip addr | grep $IP | awk '{for (i=2; i<NF; i++) printf "%s ", $i}'`
+ip addr del $PARAMS dev $ETH
+ip addr add $PARAMS dev $BRIDGE
 EOH
   owner "root"
   group "root"

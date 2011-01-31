@@ -26,7 +26,6 @@ default[:nova][:creds][:user] = "nova"
 default[:nova][:creds][:group] = "nogroup"
 default[:nova][:creds][:dir] = "/var/lib/nova"
 default[:nova][:my_ip] = ipaddress
-default[:nova][:cidr_suffix] = "/24"
 default[:nova][:public_interface] = "eth1"
 default[:nova][:vlan_interface] = "eth1"
 default[:nova][:bridge] = "br100"
