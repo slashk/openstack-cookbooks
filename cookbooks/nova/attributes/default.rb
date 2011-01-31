@@ -17,11 +17,11 @@
 # limitations under the License.
 #
 
+::Chef::Node.send(:include, Opscode::OpenSSL::Password)
+
 default[:nova][:hostname] = "nova"
 default[:nova][:install_type] = "binary"
 default[:nova][:compute_connection_type] = "qemu"
-default[:nova][:user] = "admin"
-default[:nova][:project] = "admin"
 default[:nova][:creds][:user] = "nova"
 default[:nova][:creds][:group] = "nogroup"
 default[:nova][:creds][:dir] = "/var/lib/nova"
@@ -31,3 +31,7 @@ default[:nova][:vlan_interface] = "eth1"
 default[:nova][:mysql] = true
 default[:nova][:images] = []
 default[:nova][:floating_range] = "10.128.0.0/24"
+default[:nova][:user] = "admin"
+default[:nova][:project] = "admin"
+set_unless[:nova][:access_key] = secure_password
+set_unless[:nova][:secret_key] = secure_password
