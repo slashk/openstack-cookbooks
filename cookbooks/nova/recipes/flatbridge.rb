@@ -32,7 +32,7 @@ brctl addbr #{node[:nova][:bridge]}
 brctl addif #{node[:nova][:bridge]} $ETH
 ifconfig #{node[:nova][:bridge]} up
 ip addr del #{node[:nova][:my_ip]}/32 scope global dev $ETH
-ip addr add #{node[:nova][:my_ip]}/32 scope global dev br100
+ip addr add #{node[:nova][:my_ip]}/32 scope global dev #{node[:nova][:bridge]}
 EOH
   owner "root"
   group "root"
