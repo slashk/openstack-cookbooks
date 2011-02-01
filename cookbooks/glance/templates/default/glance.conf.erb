@@ -1,0 +1,7 @@
+<% if node[:glance][:verbose] %>--verbose=<%= node[:glance][:verbose] %><% end %>
+<% if node[:glance][:api_host] %>--api_host=<%= node[:glance][:api_host] %><% end %>
+<% if node[:glance][:api_port] %>--api_port=<%= node[:glance][:api_port] %><% end %>
+<% if node[:glance][:default_store] %>--default_store=<%= node[:glance][:default_store] %><% end %>
+<% if node[:glance][:filesystem_store_datadir] %>--filesystem_store_datadir=<%= node[:glance][:filesystem_store_datadir] %><% end %>
+--working_directory=<%= node[:glance][:working_directory] %>
+--logdir=<%= node[:glance][:logdir] %>
