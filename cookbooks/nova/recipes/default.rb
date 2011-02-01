@@ -20,3 +20,4 @@
 
 include_recipe "nova::all"
 include_recipe "nova::setup"
+include_recipe "nova::dashboard"
