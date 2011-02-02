@@ -30,6 +30,7 @@ default[:nova][:public_interface] = "eth1"
 default[:nova][:vlan_interface] = "eth1"
 default[:nova][:bridge] = "br100"
 default[:nova][:flatdhcp] = true
+default[:nova][:flat_interface] = "eth1"
 default[:nova][:mysql] = true
 default[:nova][:images] = []
 default[:nova][:floating_range] = "10.128.0.0/24"

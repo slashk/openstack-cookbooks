@@ -19,4 +19,5 @@
 <% end %>
 <% if @flatdhcp %>
 --network_manager=nova.network.manager.FlatDHCPManager
+--flat_interface=<%= node[:nova][:flat_interface] %>
 <% end %>
