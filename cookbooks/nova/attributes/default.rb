@@ -28,7 +28,6 @@ default[:nova][:creds][:dir] = "/var/lib/nova"
 default[:nova][:my_ip] = ipaddress
 default[:nova][:public_interface] = "eth1"
 default[:nova][:vlan_interface] = "eth1"
-default[:nova][:bridge] = "br100"
 default[:nova][:flatdhcp] = true
 default[:nova][:flat_interface] = "eth1"
 default[:nova][:mysql] = true
