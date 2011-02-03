@@ -21,7 +21,7 @@ include_recipe 'apt'
 
 apt_repository "anso" do
   key "460DF9BE"
-  keyserver "pgp.mit.edu"
+  keyserver "keyserver.ubuntu.com"
   uri "http://packages.ansolabs.com/"
   distribution node[:apt][:distro]
   components(["main"])
