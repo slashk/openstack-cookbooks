@@ -73,7 +73,6 @@
     ]
   },
   "maintainer": "Opscode, Inc.",
-  "version": "0.22.0",
   "attributes": {
   },
   "replacing": {
@@ -84,9 +83,5 @@
   "name": "chef",
   "recommendations": {
   },
-<<<<<<< HEAD
-  "license": "Apache 2.0"
-=======
   "version": "0.22.1"
->>>>>>> chef-vendor-chef
 }
