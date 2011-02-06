@@ -21,15 +21,17 @@ package "git"
 
 file "/root/cookbooks.sh" do
   content <<-EOH
-git clone #{node[:cookbooks][:url]} -b #{node[:cookbooks][:branch]} openstack-cookbooks
+git clone #{node[:cookbooks][:url]} -b #{node[:cookbooks][:branch]} /root/openstack-cookbooks
+export HOME=/root
 knife configure -i -y --defaults -r="" -u #{node[:cookbooks][:user]}
-knife cookbook upload -o openstack-cookbooks/cookbooks -a
+knife cookbook upload -o /root/openstack-cookbooks/cookbooks -a
 EOH
   owner "root"
   group "root"
+  mode 0755
 end
 
-execute "bash /root/cookbooks.sh && touch /root/cooked" do
+execute "/root/cookbooks.sh && touch /root/cooked" do
   user "root"
   group "root"
   not_if { File.exists?("/root/cooked") }
