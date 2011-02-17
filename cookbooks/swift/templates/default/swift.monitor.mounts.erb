@@ -13,7 +13,7 @@ for d in `find <%= node[:cloudfiles][:mount_path] %> -type d` ; do
 done
 
 if [ $dirs -lt $target_count ] ; then
-  echo "Mount Mismatch!
+  echo "Mount Mismatch!"
   echo "Expected $target_count mounted drives, but only got $dirs"
   echo "LIST: $names"
 fi
