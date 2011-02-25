@@ -34,6 +34,7 @@ default[:nova][:mysql] = true
 default[:nova][:images] = []
 default[:nova][:floating_range] = "192.168.76.128/28"
 default[:nova][:fixed_range] = "10.0.0.0/8"
+default[:nova][:flat_dhcp_start] = "10.0.0.2"
 default[:nova][:num_networks] = 8
 default[:nova][:network_size] = 32
 default[:nova][:user] = "admin"
