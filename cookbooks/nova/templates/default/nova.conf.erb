@@ -3,6 +3,9 @@
 --logdir=/var/log/nova
 --state_path=/var/lib/nova
 --verbose
+--fixed_range=<%= node[:nova][:fixed_range] %>
+--num_networks=<%= node[:nova][:num_networks] %>
+--network_size=<%= node[:nova][:network_size] %>
 --my_ip=<%= node[:nova][:my_ip] %>
 --public_interface=<%= node[:nova][:public_interface] %>
 --vlan_interface=<%= node[:nova][:vlan_interface] %>
