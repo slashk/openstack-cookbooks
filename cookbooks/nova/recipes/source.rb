@@ -19,9 +19,13 @@
 
 include_recipe "runit"
 
-execute "easy_install virtualenv"
-
 package "bzr"
+package "python-pip"
+package "python-setuptools"
+package "gcc"
+package "python-dev"
+
+execute "easy_install virtualenv"
 
 execute "bzr init-repo nova" do
   cwd node[:nova][:services_base_dir]
@@ -66,3 +70,12 @@ execute "unzip nova.zip" do
   not_if { File.exists?(File.join(node[:nova][:local_branch_dir], "novarc")) }
 end
 
+execute "wget https://gist.github.com/gists/818882/download -o nova-screen" do
+  cwd node[:nova][:local_branch_dir]
+  not_if { File.exists?(File.join(node[:nova][:local_branch_dir],
+                                  'nova-screen'))}
+end
+
+execute "chmod +x nova-screen" do
+  cwd node[:nova][:local_branch_dir]
+end
