@@ -20,6 +20,7 @@
 package "git"
 package "vim-gtk"
 package "screen"
+package "tmux"
 package "exuberant-ctags"
 
 u = node['settings']['user']
@@ -33,4 +34,10 @@ execute "cd /home/#{u} && settings/link.sh" do
   user u
   group u
   not_if { File.exists?("/home/#{u}/.vimrc") }
+end
+
+execute "ln -s /home/#{u}/.host-ssh/id_rsa /home/#{u}/.ssh/id_rsa" do
+  user u
+  group u
+  not_if { File.exists?("/home/#{u}/.ssh/id_rsa") }
 end
