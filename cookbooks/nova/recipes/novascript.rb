@@ -19,7 +19,9 @@
 
 package "git-core"
 
-execute "git clone https://github.com/vishvananda/novascript"
+execute "git clone https://github.com/vishvananda/novascript" do
+  not_if { File.exists?("novascript") }
+end
 
 execute "./novascript/nova.sh branch #{node[:nova][:source_branch]}"
 
