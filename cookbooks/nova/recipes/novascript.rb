@@ -29,6 +29,10 @@ end
 
 execute "./novascript/nova.sh run_detached" do
   user "root"
+  environment ({INTERFACE => node[:nova][:vlan_interface],
+                FLOATING_RANGE => node[:nova][:floating_range],
+                FIXED_RANGE => node[:nova][:floating_range],
+                HOST_IP => node[:nova][:my_ip]})
 end
 
 execute "unzip -o ./nova/nova.zip -d #{node[:nova][:creds][:dir]}/" do
