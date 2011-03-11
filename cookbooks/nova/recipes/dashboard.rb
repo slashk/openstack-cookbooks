@@ -4,23 +4,7 @@ package "bzr"
 package "apache2"
 package "libapache2-mod-wsgi"
 
-directory "#{node[:nova][:dashboard][:deploy_dir]}" do
-  owner "root"
-  group "root"
-  mode 0755
-  action :create
-end
-
-directory "#{node[:nova][:dashboard][:deploy_dir]}" do
-    owner "root"
-    group "root"
-    mode 0755
-    action :create
-end
-
-execute "bzr branch #{node[:nova][:dashboard][:dashboard_branch]} #{node[:nova][:dashboard][:dashboard_dir]}" do
-    cwd node[:nova][:dashboard][:deploy_dir]
-end
+execute "bzr branch #{node[:nova][:dashboard][:dashboard_branch]} #{node[:nova][:dashboard][:deploy_dir]}"
 
 file "/usr/lib/python2.6/dist-packages/dashboard.pth" do
   content node[:nova][:dashboard][:dashboard_dir]
