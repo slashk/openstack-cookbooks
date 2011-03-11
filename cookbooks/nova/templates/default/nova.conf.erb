@@ -2,6 +2,7 @@
 --dhcpbridge=/usr/bin/nova-dhcpbridge
 --logdir=/var/log/nova
 --state_path=/var/lib/nova
+--lock_path=/var/lock/nova
 --verbose
 --fixed_range=<%= node[:nova][:fixed_range] %>
 --num_networks=<%= node[:nova][:num_networks] %>
