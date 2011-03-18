@@ -1,0 +1,47 @@
+{
+  "recipes": {
+  },
+  "suggestions": {
+  },
+  "platforms": {
+    "debian": [
+
+    ],
+    "fedora": [
+
+    ],
+    "centos": [
+
+    ],
+    "ubuntu": [
+
+    ],
+    "suse": [
+
+    ],
+    "redhat": [
+
+    ]
+  },
+  "long_description": "",
+  "conflicting": {
+  },
+  "description": "Installs bazaar",
+  "providing": {
+  },
+  "dependencies": {
+  },
+  "maintainer": "Ken Pepple",
+  "version": "0.1.0",
+  "attributes": {
+  },
+  "replacing": {
+  },
+  "maintainer_email": "ken.pepple@rabbityard.com",
+  "groupings": {
+  },
+  "name": "bzr",
+  "recommendations": {
+  },
+  "license": "Apache 2.0"
+}
